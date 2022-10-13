@@ -1,17 +1,24 @@
 /*------------------------------------*\
 #FONTS
 \*------------------------------------*/
-
+@font-face {
+  font-family: 'Work sans';
+  src: url('../fonts/WorkSans-VariableFont_wght.ttf');
+}
 /*------------------------------------*\
 #Variables
 \*------------------------------------*/
 
 :root {
-    /* colors */
+  /* colors */
+  --color-light: hsla(208, 100%, 90%, 1);
+  --color-dark: hsla(208, 70%, 20%, 1);
 
-    /* opacity */
+  --color-front: var(--color-dark);
+  --color-back: var(--color-light);
+  /* opacity */
 
-    /* transitions */
+  /* transitions */
 }
 
 /*------------------------------------*\
@@ -25,18 +32,21 @@
 */
 
 html {
-    font-size: 16px;
-    line-height: 1.5;
-    font-family: Helvetica, arial, sans-serif;
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+  line-height: 1.5;
+  font-family: 'Work sans', sans-serif;
+  font-feature-settings: 'zero' 1;
+  background-color: var(--color-back);
+  color: var(--color-front);
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 *,
 *:before,
 *:after {
-    box-sizing: inherit;
+  box-sizing: inherit;
 }
 
 /*
@@ -47,15 +57,15 @@ html {
 */
 
 ::-moz-selection {
-    background: red;
-    color: white;
-    text-shadow: none;
+  background: red;
+  color: white;
+  text-shadow: none;
 }
 
 ::selection {
-    background: red;
-    color: white;
-    text-shadow: none;
+  background: var(--color-front);
+  color: white;
+  text-shadow: none;
 }
 
 /*------------------------------------*\
@@ -69,8 +79,8 @@ Default markup for images to make them responsive
 */
 
 img {
-    max-width: 100%;
-    vertical-align: top;
+  max-width: 100%;
+  vertical-align: top;
 }
 
 /*
@@ -82,34 +92,34 @@ img {
 h1,
 h2,
 h3 {
-    font-weight: 700;
+  font-weight: 700;
 }
 
 h1 {
-    font-size: 36px;
-    line-height: 48px;
-    margin: 0 0 24px;
+  font-size: 36px;
+  line-height: 48px;
+  margin: 0 0 24px;
 }
 
 h2 {
-    font-size: 32px;
-    line-height: 40px;
-    margin: 0 0 24px;
+  font-size: 32px;
+  line-height: 40px;
+  margin: 0 0 24px;
 }
 
 h3 {
-    font-size: 26px;
-    line-height: 32px;
-    margin: 0 0 24px;
+  font-size: 26px;
+  line-height: 32px;
+  margin: 0 0 24px;
 }
 
 h4,
 h5,
 h6 {
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 24px;
-    margin: 0 0 24px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  margin: 0 0 24px;
 }
 
 p,
@@ -119,73 +129,73 @@ dl,
 table,
 address,
 figure {
-    margin: 0 0 24px;
+  margin: 0 0 24px;
 }
 
 ul,
 ol {
-    padding-left: 24px;
+  padding-left: 24px;
 }
 
 li ul,
 li ol {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 blockquote {
-    font-style: normal;
-    font-size: 23px;
-    line-height: 32px;
-    margin: 0 0 24px;
+  font-style: normal;
+  font-size: 23px;
+  line-height: 32px;
+  margin: 0 0 24px;
 }
 
 blockquote * {
-    font-size: inherit;
-    line-height: inherit;
+  font-size: inherit;
+  line-height: inherit;
 }
 
 figcaption {
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 16px;
-    margin-top: 8px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  margin-top: 8px;
 }
 
 hr {
-    border: 0;
-    height: 1px;
-    background: LightGrey;
-    margin: 0 0 24px;
+  border: 0;
+  height: 1px;
+  background: LightGrey;
+  margin: 0 0 24px;
 }
 
 a {
-    color: red;
-    outline-color: red;
-    outline-width: medium;
-    outline-offset: 2px;
+  color: red;
+  outline-color: red;
+  outline-width: medium;
+  outline-offset: 2px;
 }
 
 a:visited,
 a:active {
-    color: red;
+  color: red;
 }
 
 a:hover,
 a:focus {
-    color: red;
+  color: red;
 }
 
 label,
 input {
-    display: block;
+  display: block;
 }
 
 select {
-    width: 100%;
+  width: 100%;
 }
 
 input::placeholder {
-    color: gray;
+  color: gray;
 }
 
 /*------------------------------------*\
@@ -199,26 +209,26 @@ input::placeholder {
 */
 
 .o-button-reset {
-    border: none;
-    margin: 0;
-    padding: 0;
-    width: auto;
-    overflow: visible;
-    background: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+  background: transparent;
 
-    /* inherit font & color from ancestor */
-    color: inherit;
-    font: inherit;
+  /* inherit font & color from ancestor */
+  color: inherit;
+  font: inherit;
 
-    /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
-    line-height: normal;
+  /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
+  line-height: normal;
 
-    /* Corrects font smoothing for webkit */
-    -webkit-font-smoothing: inherit;
-    -moz-osx-font-smoothing: inherit;
+  /* Corrects font smoothing for webkit */
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
 
-    /* Corrects inability to style clickable `input` types in iOS */
-    -webkit-appearance: none;
+  /* Corrects inability to style clickable `input` types in iOS */
+  -webkit-appearance: none;
 }
 
 /*
@@ -228,14 +238,14 @@ input::placeholder {
 */
 
 .o-hide-accessible {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
 
 /*------------------------------------*\
@@ -249,7 +259,11 @@ input::placeholder {
 */
 
 .c-logo {
-
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 16px; /* 1rem */
+  margin-bottom: auto;
 }
 
 /*
@@ -259,11 +273,12 @@ input::placeholder {
 */
 
 .c-sun {
-
+  fill: var(--color-front);
+  width: 22px;
+  height: 22px;
 }
 
 .c-logo .c-sun {
-
 }
 
 /*
@@ -271,13 +286,75 @@ input::placeholder {
     ---
     Main app wrapper
 */
+.c-app {
+  min-height: 100vh;
+  /*1rem = body font size = 16px*/
+  padding: 2rem 2rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  max-width: 25rem; /* 400px = 25rem */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.c-app__summary {
+  font-size: 28px; /*1.75 rem*/
+  line-height: 40px; /*2.5 rem*/
+}
 
 /*
     Component: Horizon
     ---
     Horizon with sun visualisation
 */
+.c-horizon {
+  margin-bottom: 2.125rem; /* 34px = 2.125rem */
+}
 
+.c-horizon__sky-wrapper {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+  padding-top: 22px; /* 1.375rem */
+  padding-right: 40px; /* 2.5rem */
+}
+
+.c-horizon__sky {
+  position: relative;
+  height: 100%;
+}
+
+.c-horizon__sun {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40px; /* 2.5rem */
+  transform: translateY(50%); /*of 20px*/
+}
+
+.c-horizon__sun::before {
+  content: attr(data-time);
+  display: block;
+  margin-bottom: 0.5rem; /* 8px = 0.5rem */
+  text-align: center;
+  font-size: 0.75rem; /* 12px = 0.75rem */
+  line-height: 0.875rem; /* 14px = 0.875rem */
+}
+
+.c-horizon__line {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid var(--color-front);
+  padding-top: 0.5rem;
+}
+
+.c-horizon__time {
+  font-size: 0.75rem;
+  line-height: 0.875rem;
+}
 /*------------------------------------*\
 #UTILITIES
 \*------------------------------------*/
@@ -286,7 +363,9 @@ input::placeholder {
     Utilities: Mute
     Mute with opacity
 */
-
+.u-muted {
+  opacity: 0.6;
+}
 /*------------------------------------*\
 #STATES
 \*------------------------------------*/
@@ -296,7 +375,10 @@ input::placeholder {
 */
 
 /* Night version: just switch the light and dark vars */
-
+.is-night {
+  --color-front: var(--color-light);
+  --color-back: var(--color-dark);
+}
 /*------------------------------------*\
 #MEDIA
 \*------------------------------------*/
@@ -309,61 +391,61 @@ input::placeholder {
 */
 
 @media print {
-    *,
-    *:before,
-    *:after {
-        background: transparent !important;
-        color: #000 !important;
-        /* Black prints faster:
+  *,
+  *:before,
+  *:after {
+    background: transparent !important;
+    color: #000 !important;
+    /* Black prints faster:
         http://www.sanbeiji.com/archives/953 */
-        box-shadow: none !important;
-        text-shadow: none !important;
-    }
-    a,
-    a:visited {
-        text-decoration: underline;
-    }
-    a[href]:after {
-        content: " (" attr(href) ")";
-    }
-    abbr[title]:after {
-        content: " (" attr(title) ")";
-    }
-    /*
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+  a[href]:after {
+    content: ' (' attr(href) ')';
+  }
+  abbr[title]:after {
+    content: ' (' attr(title) ')';
+  }
+  /*
     * Don't show links that are fragment identifiers,
     * or use the `javascript:` pseudo protocol
     */
-    a[href^="#"]:after,
-    a[href^="javascript:"]:after {
-        content: "";
-    }
-    pre {
-        white-space: pre-wrap !important;
-    }
-    pre,
-    blockquote {
-        border: 1px solid #999;
-        page-break-inside: avoid;
-    }
-    /*
+  a[href^='#']:after,
+  a[href^='javascript:']:after {
+    content: '';
+  }
+  pre {
+    white-space: pre-wrap !important;
+  }
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid;
+  }
+  /*
     * Printing Tables:
     * http://css-discuss.incutio.com/wiki/Printing_Tables
     */
-    thead {
-        display: table-header-group;
-    }
-    tr,
-    img {
-        page-break-inside: avoid;
-    }
-    p,
-    h2,
-    h3 {
-        orphans: 3;
-        widows: 3;
-    }
-    h2,
-    h3 {
-        page-break-after: avoid;
-    }
+  thead {
+    display: table-header-group;
+  }
+  tr,
+  img {
+    page-break-inside: avoid;
+  }
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
 }
