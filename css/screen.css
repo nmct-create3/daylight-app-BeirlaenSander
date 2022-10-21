@@ -1,21 +1,17 @@
 /*------------------------------------*\
 #FONTS
 \*------------------------------------*/
-@font-face {
-  font-family: 'Work sans';
-  src: url('../fonts/WorkSans-VariableFont_wght.ttf');
-}
+
 /*------------------------------------*\
 #Variables
 \*------------------------------------*/
 
 :root {
   /* colors */
-  --color-light: hsla(208, 100%, 90%, 1);
-  --color-dark: hsla(208, 70%, 20%, 1);
+  --color-test: hsla(208, 20, 100, 100);
+  --color-front: #cce7ff;
+  --color-back: #0f3557;
 
-  --color-front: var(--color-dark);
-  --color-back: var(--color-light);
   /* opacity */
 
   /* transitions */
@@ -26,19 +22,19 @@
 \*------------------------------------*/
 
 /*
-    Generic: Page
-    ---
-    Global page styles + universal box-sizing:
+  Generic: Page
+  ---
+  Global page styles + universal box-sizing:
 */
 
 html {
   font-size: 16px;
   line-height: 1.5;
-  font-family: 'Work sans', sans-serif;
+  font-family: 'DM Sans', Helvetica, arial, sans-serif;
   font-feature-settings: 'zero' 1;
-  background-color: var(--color-back);
-  color: var(--color-front);
   box-sizing: border-box;
+  color: var(--color-back);
+  background-color: var(--color-front);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -57,13 +53,13 @@ html {
 */
 
 ::-moz-selection {
-  background: red;
+  background: var(--color-back);
   color: white;
   text-shadow: none;
 }
 
 ::selection {
-  background: var(--color-front);
+  background: var(--color-back);
   color: white;
   text-shadow: none;
 }
@@ -84,9 +80,9 @@ img {
 }
 
 /*
-    Elements: typography
-    ---
-    Default markup for typographic elements
+  Elements: typography
+  ---
+  Default markup for typographic elements
 */
 
 h1,
@@ -203,9 +199,9 @@ input::placeholder {
 \*------------------------------------*/
 
 /*
-    Object: Button reset
-    ---
-    Small button reset object
+  Object: Button reset
+  ---
+  Small button reset object
 */
 
 .o-button-reset {
@@ -232,9 +228,9 @@ input::placeholder {
 }
 
 /*
-    Object: Hide accessible
-    ---
-    Accessibly hide any element
+  Object: Hide accessible
+  ---
+  Accessibly hide any element
 */
 
 .o-hide-accessible {
@@ -253,115 +249,114 @@ input::placeholder {
 \*------------------------------------*/
 
 /*
-    Component: Logo
-    ---
-    Website main logo
+  Component: Logo
+  ---
+  Website main logo
 */
 
 .c-logo {
   display: flex;
-  gap: 8px;
   align-items: center;
-  font-size: 16px; /* 1rem */
+  gap: 0.5rem;
   margin-bottom: auto;
+  font-size: 1rem;
+  font-weight: 400;
 }
 
 /*
-    Component: Sun
-    ---
-    The sun
-*/
-
-.c-sun {
-  fill: var(--color-front);
-  width: 22px;
-  height: 22px;
-}
-
-.c-logo .c-sun {
-}
-
-/*
-    Component: App
-    ---
-    Main app wrapper
-*/
-.c-app {
-  min-height: 100vh;
-  /*1rem = body font size = 16px*/
-  padding: 2rem 2rem 0.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  max-width: 25rem; /* 400px = 25rem */
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.c-app__summary {
-  font-size: 28px; /*1.75 rem*/
-  line-height: 40px; /*2.5 rem*/
-}
-
-/*
-    Component: Horizon
-    ---
-    Horizon with sun visualisation
+  Component: Sun
+  ---
+  The sun
 */
 .c-horizon {
-  margin-bottom: 2.125rem; /* 34px = 2.125rem */
+  margin-bottom: 2.125rem;
 }
-
 .c-horizon__sky-wrapper {
   position: relative;
   height: 200px;
   overflow: hidden;
-  padding-top: 22px; /* 1.375rem */
-  padding-right: 40px; /* 2.5rem */
+  padding-right: 2.5rem;
+  padding-top: 1.75rem;
 }
 
 .c-horizon__sky {
   position: relative;
   height: 100%;
 }
-
 .c-horizon__sun {
   position: absolute;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 40px; /* 2.5rem */
-  transform: translateY(50%); /*of 20px*/
+  width: 2.5rem;
+  transform: translateY(50%);
 }
-
 .c-horizon__sun::before {
   content: attr(data-time);
   display: block;
-  margin-bottom: 0.5rem; /* 8px = 0.5rem */
+  margin-bottom: 0.5rem;
   text-align: center;
-  font-size: 0.75rem; /* 12px = 0.75rem */
-  line-height: 0.875rem; /* 14px = 0.875rem */
+  font-size: 0.75rem;
+  line-height: 0.875rem;
 }
 
 .c-horizon__line {
   display: flex;
   justify-content: space-between;
-  border-top: 1px solid var(--color-front);
+  border-top: 1px solid var(--color-back);
   padding-top: 0.5rem;
 }
-
 .c-horizon__time {
-  font-size: 0.75rem;
-  line-height: 0.875rem;
+  font-size: 0.75rem; /*12px*/
+  line-height: 0.875rem; /*14px*/
 }
+
+.c-sun {
+  --local-sun-size: 1.375rem; /* 22px */
+
+  width: var(--local-sun-size);
+  height: var(--local-sun-size);
+  fill: var(--color-back);
+}
+
+.c-logo .c-sun {
+}
+
+/*
+  Component: App
+  ---
+  Main app wrapper
+*/
+
+.c-app {
+  min-height: 100vh;
+  /*1rem = body font size = 16px*/
+  padding: 2rem 2rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  max-width: 25rem; /*400px = 25rem*/
+  margin-left: auto;
+  margin-right: auto;
+}
+.c-app__summary {
+  font-size: 1.75rem;
+  line-height: 2.5rem;
+}
+
+/*
+  Component: Horizon
+  ---
+  Horizon with sun visualisation
+*/
+
 /*------------------------------------*\
 #UTILITIES
 \*------------------------------------*/
 
 /*
-    Utilities: Mute
-    Mute with opacity
+  Utilities: Mute
+  Mute with opacity
 */
 .u-muted {
   opacity: 0.6;
@@ -371,23 +366,24 @@ input::placeholder {
 \*------------------------------------*/
 
 /*
-    Change the theme using CSS vars.
+  Change the theme using CSS vars.
 */
 
 /* Night version: just switch the light and dark vars */
+
 .is-night {
-  --color-front: var(--color-light);
-  --color-back: var(--color-dark);
+  --color-front: #0f3557;
+  --color-back: #cce7ff;
 }
 /*------------------------------------*\
 #MEDIA
 \*------------------------------------*/
 
 /*
-    Print styles.
-    ---
-    Inlined to avoid the additional HTTP request:
-    http://www.phpied.com/delay-loading-your-print-css/
+  Print styles.
+  ---
+  Inlined to avoid the additional HTTP request:
+  http://www.phpied.com/delay-loading-your-print-css/
 */
 
 @media print {
@@ -397,7 +393,7 @@ input::placeholder {
     background: transparent !important;
     color: #000 !important;
     /* Black prints faster:
-        http://www.sanbeiji.com/archives/953 */
+      http://www.sanbeiji.com/archives/953 */
     box-shadow: none !important;
     text-shadow: none !important;
   }
@@ -412,9 +408,9 @@ input::placeholder {
     content: ' (' attr(title) ')';
   }
   /*
-    * Don't show links that are fragment identifiers,
-    * or use the `javascript:` pseudo protocol
-    */
+  * Don't show links that are fragment identifiers,
+  * or use the `javascript:` pseudo protocol
+  */
   a[href^='#']:after,
   a[href^='javascript:']:after {
     content: '';
@@ -428,9 +424,9 @@ input::placeholder {
     page-break-inside: avoid;
   }
   /*
-    * Printing Tables:
-    * http://css-discuss.incutio.com/wiki/Printing_Tables
-    */
+  * Printing Tables:
+  * http://css-discuss.incutio.com/wiki/Printing_Tables
+  */
   thead {
     display: table-header-group;
   }

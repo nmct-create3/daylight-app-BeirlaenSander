@@ -1,79 +1,80 @@
-let sunriseElement;
-let sunsetElement;
-let locationElement;
-let timeLeftElement;
-let sunElement;
-let totalTime = new Date();
+function _parseMillisecondsIntoReadableTime(timestamp) {
+  const date = new Date(timestamp * 1000);
+  const hours = '0' + date.getHours();
+  const minutes = '0' + date.getMinutes();
+  return hours.substr(-2) + ':' + minutes.substr(-2);
+}
 
-//place sun on left and bottom position
-//based on the total time and current time
-
-const placeSun = (sunrise) => {
-  const now = new Date();
-  const sunriseDate = new Date(sunrise * 1000);
-  const percentage = ((now - sunriseDate) / totalTime) * 100;
-
-  console.log(new Date(sunriseDate - now));
-
-  const sunLeftPosition = percentage;
-  const sunBottomPosition = percentage > 50 ? 100 - percentage : percentage * 2;
-
-  sunElement.style.left = `${sunLeftPosition}%`;
-  sunElement.style.bottom = `${sunBottomPosition}%`;
+let updateSun = (sunElement, minutesSunUp, totalMinutes) => {
+  let percentage = (minutesSunUp / totalMinutes) * 100;
+  sunElement.style.left = `${percentage}%`;
+  const y = percentage > 50 ? (100 - percentage) * 2 : percentage * 2;
+  sunElement.style.bottom = `${y}%`;
+  var isNight =
+    percentage > 100 || percentage < 0
+      ? document.querySelector('.is-day').classList.add('is-night')
+      : document.querySelector('.is-day').classList.remove('is-night');
+  sunElement.dataset.time = _parseMillisecondsIntoReadableTime(Date.now() / 1000);
 };
 
-const updateTimeAndTimeLeft = (timeLeftTimeStamp) => {
-  sunElement.dataset.time = new Date().toLocaleTimeString([], {
-    hour: '2-digit',
-    minute: '2-digit',
-  });
-  timeLeftElement.innertext = timeLeftTimeStamp;
+let placeSunAndStartMoving = (totalMinutes, sunrise) => {
+  const sunElement = document.querySelector('.js-sun');
+  const minutesSunUp = Math.floor((Date.now() / 1000 - new Date(sunrise)) / 60);
+  let percentage = (minutesSunUp / totalMinutes) * 100;
+  console.log('percentage', percentage);
+  document.querySelector('body').classList.add('is-loaded');
+
+  const interval = setInterval(() => {
+    updateSun(sunElement, minutesSunUp, totalMinutes);
+    if (minutesSunUp > totalMinutes) {
+      clearInterval(interval);
+    }
+  }, 1000);
 };
 
-const setDOMElemets = () => {
-  sunriseElement = document.querySelector('.js-sunrise');
-  sunsetElement = document.querySelector('.js-sunset');
-  locationElement = document.querySelector('.js-location');
-  sunElement = document.querySelector('.js-sun');
-  timeLeftElement = document.querySelector('.js-time-left');
-
-  if (!sunriseElement || !sunsetElement || !locationElement || !sunElement || !timeLeftElement) {
-    throw new Error('DOM elements not found!');
+const updateTimeAndTimeLeft = (sunset) => {
+  const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  console.log('currentTime', currentTime);
+  document.querySelector('.js-sun').setAttribute('data-time', currentTime);
+  const timeBetween = new Date(sunset) - Date.now() / 1000;
+  if (Math.floor(Math.floor(timeBetween / 60)) >= 0) {
+    document.querySelector('.js-time-left').innerHTML = Math.floor(timeBetween / 60);
+  } else {
+    document.querySelector('.js-time-left').innerHTML = 0;
   }
+  console.log(timeBetween / 60);
 };
-
-const makeReadableTimeFormatTimestamp = (timestamp) => {
-  return new Date(timestamp * 1000).toLocaleTimeString([], {
-    hour: '2-digit',
-    minute: '2-digit',
-  });
+let showResult = (queryResponse) => {
+  document.querySelector('.js-sunrise').innerHTML = _parseMillisecondsIntoReadableTime(
+    queryResponse.city.sunrise
+  );
+  document.querySelector('.js-sunset').innerHTML = _parseMillisecondsIntoReadableTime(
+    queryResponse.city.sunset
+  );
+  document.querySelector(
+    '.js-location'
+  ).innerHTML = `${queryResponse.city.name}, ${queryResponse.city.country}`;
+  updateTimeAndTimeLeft(queryResponse.city.sunset);
+  const totalMinutes = Math.floor(
+    (new Date(queryResponse.city.sunset) - new Date(queryResponse.city.sunrise)) / 60
+  );
+  console.log('totalMinutes', totalMinutes);
+  placeSunAndStartMoving(totalMinutes, queryResponse.city.sunrise);
 };
-
-const setLocationData = (data) => {
-  sunriseElement.innertext = makeReadableTimeFormatTimestamp(data.sunrise);
-  sunsetElement.innertext = makeReadableTimeFormatTimestamp(data.sunset);
-  locationElement.innertext = `${data.name}, ${data.country}`;
-};
-
-const getData = (endpoint) => {
+const getData = async (endpoint) => {
   return fetch(endpoint)
-    .then((response) => response.json())
-    .catch((error) => console.log(error));
+    .then((r) => r.json())
+    .then((d) => d)
+    .catch((e) => console.error(e));
 };
 
-document.addEventListener('DOMContentLoaded', async function () {
-  let lat = 50.8027841;
-  let long = 3.2097454;
-  const endpoint = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&appid=dec3206e837ac4f792e9a7183c03f432&units=metric&lang=nl&cnt=1`;
+let getAPI = async (lat, lon) => {
+  const data = await getData(
+    `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=4d5f6357a9dbe18f77e66a02b6bd1036&units=metric&lang=nl&cnt=1`
+  );
+  showResult(data);
+};
 
-  setDOMElemets();
-
-  const { city } = await getData(endpoint);
-  setLocationData(city);
-  totalTime =
-    new Date(city.sunset * 1000 - city.sunrise * 1000).getHours() * 60 +
-    new Date(city.sunset * 1000 - city.sunrise * 1000).getMinutes();
-
-  updateTimeAndTimeLeft('TODO');
-  placeSun(city.sunrise);
+document.addEventListener('DOMContentLoaded', function () {
+  getAPI(50.8027841, 3.2097454);
 });
